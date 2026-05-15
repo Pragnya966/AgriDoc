@@ -1,0 +1,14 @@
+{
+  "name": "agridoctor",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AgriDoctor crop disease detection app with Gemini advice.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check app.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,19 @@
+# Local dependencies and environments
+node_modules/
+tfjs_env/
+venv/
+.venv/
+
+# Training data and source model artifacts
+dataset/
+model.h5
+train.py
+
+# Secrets
+.env
+.env.*
+
+# Logs and OS files
+*.log
+Thumbs.db
+.DS_Store

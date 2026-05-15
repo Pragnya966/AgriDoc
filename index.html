@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AgriDoctor 🌱</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar">
+    <div class="nav-brand">🌱 AgriDoctor</div>
+    <div class="nav-links">
+      <button class="nav-btn active" onclick="showPage('home')">Home</button>
+      <button class="nav-btn" onclick="showPage('detect')">Detection</button>
+      <button class="nav-btn" onclick="showPage('about')">About</button>
+    </div>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">&#9776;</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <button onclick="showPage('home'); toggleMenu()">🏠 Home</button>
+    <button onclick="showPage('detect'); toggleMenu()">🔬 Detection</button>
+    <button onclick="showPage('about'); toggleMenu()">ℹ️ About</button>
+  </div>
+
+  <!-- LEAF DECORATIONS -->
+  <div class="bg-leaf leaf-1">🍃</div>
+  <div class="bg-leaf leaf-2">🌿</div>
+  <div class="bg-leaf leaf-3">🍀</div>
+
+  <!-- ========== PAGE 1: HOME ========== -->
+  <section id="page-home" class="page active">
+    <div class="hero-container">
+      <div class="hero-badge">🌾 Powered by AI</div>
+      <h1 id="title" class="hero-title">AgriDoctor <span class="title-emoji">🌱</span></h1>
+      <p id="subtitle" class="hero-subtitle">AI-powered Crop Disease Detection</p>
+      <p class="hero-desc">
+        Helping farmers diagnose plant diseases instantly — right from the field. 
+        Take a photo, get a result. Simple, fast, and built for every farmer.
+      </p>
+      <div class="hero-actions">
+  <button class="btn-primary" onclick="showPage('detect')">
+    🔬 Start Detection
+  </button>
+
+  <button class="btn-secondary" onclick="showPage('about')">
+    📖 Learn More
+  </button>
+</div>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-number">50+</div>
+          <div class="stat-label">Diseases Detected</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-card">
+          <div class="stat-number">98%</div>
+          <div class="stat-label">Accuracy Rate</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-card">
+          <div class="stat-number">⚡</div>
+          <div class="stat-label">Instant Results</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature preview cards -->
+    <div class="feature-strip">
+      <div class="feature-chip">📷 Upload a Photo</div>
+      <div class="feature-arrow">→</div>
+      <div class="feature-chip">🤖 AI Analyzes</div>
+      <div class="feature-arrow">→</div>
+      <div class="feature-chip">✅ Get Diagnosis</div>
+    </div>
+  </section>
+
+  <!-- ========== PAGE 2: DETECTION ========== -->
+  <section id="page-detect" class="page">
+    <div class="page-header">
+      <h2 class="page-title">🔬 Crop Disease Detection</h2>
+      <p class="page-subtitle">Upload a leaf photo to diagnose diseases instantly</p>
+    </div>
+
+    <div class="detect-grid">
+      <!-- Step 0: Language -->
+<div class="detect-card">
+  <div class="card-step">Step 1</div>
+  <div class="card-icon">🌐</div>
+  <h3 class="card-title">Select Language</h3>
+  <p class="card-hint">Choose your preferred language</p>
+
+  <div class="select-wrapper">
+    <select id="language" class="lang-select">
+      <option value="en">English</option>
+      <option value="te">Telugu (తెలుగు)</option>
+    </select>
+  </div>
+</div>
+      <!-- Step 1: Upload -->
+      <div class="detect-card">
+        <div class="card-step">Step 2</div>
+        <div class="card-icon">📷</div>
+        <h3 class="card-title">Upload Leaf Photo</h3>
+        <p class="card-hint">Take a clear photo of the affected leaf or crop</p>
+        <label class="upload-area" id="uploadArea">
+          <div class="upload-inner" id="uploadInner">
+            <div class="upload-icon">📁</div>
+            <div class="upload-text">Tap to upload photo</div>
+            <div class="upload-sub">JPG, PNG or WEBP supported</div>
+          </div>
+          <img id="previewImg" class="preview-img" alt="Preview" />
+          <input type="file" id="imageInput" accept="image/*" onchange="previewImage(event)" />
+        </label>
+      </div>
+
+      <!-- Step 2: Detect -->
+      <div class="detect-card detect-card--action">
+        <div class="card-step">Step 3</div>
+        <div class="card-icon">🤖</div>
+        <h3 class="card-title">Run AI Detection</h3>
+        <p class="card-hint">Our AI will identify diseases and suggest treatment</p>
+        <button id="detectBtn" class="btn-detect" onclick="predict()">
+          <span class="detect-btn-icon">🔍</span>
+          Detect Disease
+        </button>
+        <p class="detect-note">Results appear below within seconds</p>
+      </div>
+
+    </div>
+
+    <!-- Result Panel -->
+    <div class="result-panel" id="result">
+      <div class="result-placeholder">
+        <div class="result-placeholder-icon">🌿</div>
+        <p>Your diagnosis results will appear here after detection.</p>
+      </div>
+    </div>
+
+    <div class="back-link">
+      <button class="btn-ghost" onclick="showPage('home')">← Back to Home</button>
+    </div>
+  </section>
+
+  <!-- ========== PAGE 3: ABOUT ========== -->
+  <section id="page-about" class="page">
+    <div class="page-header">
+      <h2 class="page-title">ℹ️ About AgriDoctor</h2>
+      <p class="page-subtitle">Empowering farmers with intelligent crop care technology</p>
+    </div>
+
+    <!-- What we do -->
+    <div class="about-hero-card">
+      <div class="about-hero-left">
+        <h3>What is AgriDoctor?</h3>
+        <p>
+          AgriDoctor is an AI-powered mobile-friendly web application designed to help farmers 
+          identify and treat crop diseases quickly and accurately. Using advanced image recognition, 
+          it analyzes photos of affected plants and provides instant, actionable diagnosis — even in 
+          regional languages like Telugu.
+        </p>
+        <p>
+          No agronomist needed. No expensive lab tests. Just take a photo and get your answer in seconds.
+        </p>
+      </div>
+      <div class="about-hero-visual">
+        <div class="about-visual-emoji">🌱</div>
+        <div class="about-visual-ring ring-1"></div>
+        <div class="about-visual-ring ring-2"></div>
+      </div>
+    </div>
+
+    <!-- Benefits -->
+    <h3 class="section-heading">Benefits for Farmers</h3>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">⏱️</div>
+        <h4>Save Time</h4>
+        <p>Get instant diagnoses instead of waiting days for an agricultural expert visit.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">💰</div>
+        <h4>Save Money</h4>
+        <p>Avoid unnecessary pesticide costs with targeted, accurate disease identification.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🌾</div>
+        <h4>Better Yields</h4>
+        <p>Catch diseases early and protect your crops before the damage spreads.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">📱</div>
+        <h4>Easy to Use</h4>
+        <p>Simple enough for anyone — no technical knowledge required. Just snap and upload.</p>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <h3 class="section-heading">Key Features</h3>
+    <div class="features-list">
+      <div class="feature-item">
+        <div class="feature-item-icon">📶</div>
+        <div class="feature-item-body">
+          <h4>Offline Support</h4>
+          <p>Works even in areas with limited or no internet connectivity. Designed for rural fields.</p>
+        </div>
+        <div class="feature-item-badge">✓ Available</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-item-icon">🗣️</div>
+        <div class="feature-item-body">
+          <h4>Telugu Language Support</h4>
+          <p>Results shown in Telugu so farmers can fully understand diagnoses in their native language.</p>
+        </div>
+        <div class="feature-item-badge">✓ Available</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-item-icon">🤖</div>
+        <div class="feature-item-body">
+          <h4>AI-Based Detection</h4>
+          <p>Powered by a trained deep learning model capable of identifying 50+ crop diseases with high accuracy.</p>
+        </div>
+        <div class="feature-item-badge">✓ Available</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-item-icon">🔒</div>
+        <div class="feature-item-body">
+          <h4>Privacy First</h4>
+          <p>Your photos are processed locally and never stored on any server.</p>
+        </div>
+        <div class="feature-item-badge">✓ Available</div>
+      </div>
+    </div>
+
+    <div class="about-cta">
+      <p>Ready to protect your crops?</p>
+      <button class="btn-primary" onclick="showPage('detect')">🔬 Start Detection Now</button>
+    </div>
+
+    <div class="back-link">
+      <button class="btn-ghost" onclick="showPage('home')">← Back to Home</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>🌱 AgriDoctor — Protecting Crops, Empowering Farmers</p>
+    <p class="footer-sub">Built with ❤️ for the farming community</p>
+  </footer>
+
+  <script>
+    // ---- Navigation ----
+    function showPage(name) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('page-' + name).classList.add('active');
+      const idx = ['home','detect','about'].indexOf(name);
+      document.querySelectorAll('.nav-btn')[idx].classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    // ---- Image Preview ----
+    function previewImage(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = document.getElementById('previewImg');
+        const inner = document.getElementById('uploadInner');
+        img.src = e.target.result;
+        img.style.display = 'block';
+        inner.style.display = 'none';
+        document.getElementById('uploadArea').classList.add('has-image');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // ---- Stub predict() if app.js not loaded ----
+    if (typeof predict === 'undefined') {
+      function predict() {
+        const resultEl = document.getElementById('result');
+        resultEl.innerHTML = `
+          <div class="result-content">
+            <div class="result-icon">✅</div>
+            <h3>Detection Complete</h3>
+            <p>Connect <strong>app.js</strong> to see real AI results here.</p>
+          </div>`;
+      }
+    }
+  </script>
+
+  <!-- Your existing JS file -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.10.0"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
